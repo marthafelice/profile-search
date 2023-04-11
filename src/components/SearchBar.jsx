@@ -11,7 +11,7 @@ export default function SearchBar() {
   });
 
   const searchProfiles = () => {
-    // update state to trigger re-render of filtered profiles list
+
     setSearchQuery(searchQuery);
   };
 
