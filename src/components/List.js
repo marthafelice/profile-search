@@ -1,10 +1,10 @@
 import React from 'react';
 
-const List = ({ profiles }) => {
+const List = ({ selectedProfile }) => {
   return (
     <div >
     <ul className='list-display'> 
-      {profiles.map(profile => (
+      {selectedProfile.map(profile => (
         <li key={profile.id} className='card'>
             <div>
           <img src={profile.picture} alt={`${profile.firstName} ${profile.lastName}`} />

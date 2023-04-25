@@ -1,52 +1,22 @@
 import React from "react";
-import { profiles } from "./data";
 import { useState } from "react";
 
-export default function SearchBar() {
+export default function SearchBar({getQuery}) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredProfiles = profiles.filter((profile) => {
-    const fullName = `${profile.firstName} ${profile.lastName}`;
-    return fullName.toLowerCase().includes(searchQuery.toLowerCase());
-  });
-
-  const searchProfiles = () => {
-
-    setSearchQuery(searchQuery);
+  const handleChange = (e) => {
+    if(searchQuery.length < 1 && e.target.value == " ") return
+    setSearchQuery(e.target.value)
+    getQuery(e.target.value);
   };
 
   return (
     <div className="search-bar">
       <input
         placeholder="Search by name..."
-        onClick={searchProfiles}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            searchProfiles();
-          }
-        }}
+        value={searchQuery}
+        onChange={handleChange}
       />
-
-      <ul className="list-display">
-        {filteredProfiles.map((profile) => (
-          <li key={profile.id} className="card">
-            <div>
-              <img
-                src={profile.picture}
-                alt={`${profile.firstName} ${profile.lastName}`}
-              />
-            </div>
-            <div className="card-details">
-              <p>{`${profile.id}`} </p>
-              <p
-                style={{ fontWeight: "bold" }}
-              >{`${profile.title} ${profile.firstName} ${profile.lastName}`}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
